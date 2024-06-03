@@ -6,6 +6,10 @@ export default function Layout() {
     completed: boolean;
   }
   const [tasks, setTasks] = useState<TaskProps[]>([])
+  useEffect(() => {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]')
+    setTasks(tasks)
+  }, [])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -13,6 +17,7 @@ export default function Layout() {
       if (!taskValue) return
 
       setTasks([...tasks, { title: taskValue, completed: false }])
+      localStorage.setItem('tasks', JSON.stringify([...tasks, { title: taskValue, completed: false }]))
       e.currentTarget.value = ''
     }
   }
@@ -21,24 +26,22 @@ export default function Layout() {
     const newTasks = [...tasks]
     newTasks[index].completed = !newTasks[index].completed
     setTasks(newTasks)
+    localStorage.setItem('tasks', JSON.stringify(newTasks))
   }
 
   const clearCompleted = () => {
     setTasks(tasks.filter(task => !task.completed))
+    localStorage.setItem('tasks', JSON.stringify(tasks.filter(task => !task.completed)))
   }
-
-  useEffect(() => {
-    console.log(tasks)
-  }, [tasks])
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-4xl text-white font-semibold mb-6">
+      <h1 className="text-4xl text-white font-semibold mb-6 mt-12">
         T O D O
       </h1>
 
       <div className="sm:max-w-4xl sm:min-w-[560px]">
-        <div className="flex gap-6 p-4 bg-gray-800 border border-gray-700 rounded-sm mb-8">
+        <div className="flex gap-6 p-4 bg-gray-800 border border-gray-700 rounded-sm mb-6">
           <button className={`h-6 w-6 rounded-full border border-current `}>
           </button>
           <input type="text"
@@ -49,7 +52,7 @@ export default function Layout() {
         </div>
 
         {tasks.map((task, index) => (
-          <Task index={index} title={task.title} completed={task.completed} completeTaks={completeTask}         />
+          <Task key={index} index={index} title={task.title} completed={task.completed} completeTaks={completeTask} />
         ))}
 
         <div className="flex justify-between gap-4 p-4 bg-gray-800">
@@ -64,8 +67,8 @@ export default function Layout() {
           </button>
         </div>
 
-        <span className="flex items-center justify-center mt-8 mb-8 text-gray-500">
-          Design inspired by @frontend mentor
+        <span className="flex items-center justify-center mt-6 mb-8 text-gray-500">
+          Design inspired by @frontendmentor
         </span>
 
       </div>
