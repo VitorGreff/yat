@@ -35,13 +35,13 @@ export default function Layout() {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col absolute inset-0 items-center">
         <h1 className="flex justify-start sm:min-w-[560px] text-4xl text-white font-semibold mb-6 mt-12">
           T O D O
         </h1>
 
       <div className="sm:max-w-4xl sm:min-w-[560px]">
-        <div className="flex gap-6 p-4 bg-gray-800 border border-gray-700 rounded-sm mb-6">
+        <div className="flex gap-6 p-4 bg-gray-800 border border-gray-700 rounded-sm mb-4">
           <button className={`h-6 w-6 rounded-full border border-current `}>
           </button>
           <input type="text"
