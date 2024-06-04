@@ -36,9 +36,9 @@ export default function Layout() {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-4xl text-white font-semibold mb-6 mt-12">
-        T O D O
-      </h1>
+        <h1 className="flex justify-start sm:min-w-[560px] text-4xl text-white font-semibold mb-6 mt-12">
+          T O D O
+        </h1>
 
       <div className="sm:max-w-4xl sm:min-w-[560px]">
         <div className="flex gap-6 p-4 bg-gray-800 border border-gray-700 rounded-sm mb-6">
